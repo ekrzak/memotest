@@ -4,9 +4,75 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.css" rel="stylesheet">
+    <link href="./css/main.css" rel="stylesheet">        
     <title>Memotest</title>
 </head>
 <body>
-    
+    <div class="container-sm">
+        <div class="row">
+            <div class="col">
+                <div id="instructions" class="alert alert-dark" role="alert">
+                    A simple dark alert—check it out!
+                </div>
+            </div>
+            <div class="col-md-auto">
+                <p>Round #<strong id="round">0</strong> --- Time Elapsed: <strong id="time">00:00:00</strong></p>
+            </div>
+            <div class="col col-lg-2">
+                <button id="button-start" type="button" class="btn btn-dark">Start</button>
+            </div>
+        </div>
+    </div>
+    <div class="container-sm" id="board">
+        <div class="row">
+            <div class="col-sm-2">
+                <div id="cell-1" class="cell">1</div>
+            </div>
+            <div class="col-sm-2">
+                <div id="cell-2" class="cell">2</div>
+            </div>
+            <div class="col-sm-2">
+                <div id="cell-3" class="cell">3</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div id="cell-4" class="cell">4</div>
+            </div>
+            <div class="col-sm-2">
+                <div id="cell-5" class="cell">5</div>
+            </div>
+            <div class="col-sm-2">
+                <div id="cell-6" class="cell">6</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div id="cell-7" class="cell">7</div>
+            </div>
+            <div class="col-sm-2">
+                <div id="cell-8" class="cell">8</div>
+            </div>
+            <div class="col-sm-2">
+                <div id="cell-9" class="cell">9</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <div id="cell-10" class="cell">10</div>
+            </div>
+            <div class="col-sm-2">
+                <div id="cell-11" class="cell">11</div>
+            </div>
+            <div class="col-sm-2">
+                <div id="cell-12" class="cell">12</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/index.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
