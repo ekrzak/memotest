@@ -1,0 +1,22 @@
+{
+  "name": "memotest",
+  "version": "1.0.0",
+  "description": "Test your memory with this game",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ekrzak/memotest.git"
+  },
+  "author": "@ekrzak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ekrzak/memotest/issues"
+  },
+  "homepage": "https://github.com/ekrzak/memotest#readme",
+  "dependencies": {
+    "bootstrap": "^5.1.3"
+  }
+}
