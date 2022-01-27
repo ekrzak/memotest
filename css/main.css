@@ -6,4 +6,30 @@ body {
 .cell {
     height: 10vw;
     outline: 1px solid black;
+    background-color: #777;
+    transition: background-color 750ms;
+}
+
+.red {
+    background-color: red;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.green {
+    background-color: green;
+}
+
+.purple {
+    background-color: purple;
+}
+
+.white {
+    background-color: white;
 }
