@@ -1,10 +1,12 @@
 document.querySelector('#button-start').onclick = startGame;
 
 const colors = ['red', 'blue', 'yellow', 'green', 'purple', 'white'];
+const firstHalf = colors.slice(); // returns a copy of the array, not the array ifself
+const secondHalf = colors.slice();
 
 function startGame() {
     let tries = 0;
-    const randomBoard = shuffle(colors).concat(shuffle(colors));
+    const randomBoard = shuffle(firstHalf).concat(shuffle(secondHalf));
     startChronometer();
     turnUser(randomBoard);
 };
