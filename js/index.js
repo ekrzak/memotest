@@ -19,9 +19,12 @@ function shuffle(array) {
 }
 
 function startChronometer() {
-    const currentTime = Date.now();
-    
-    //document.querySelector('#time').innerText = `${}`;
+    const startTime = Date.now();
+    setInterval(function() {
+        let actualTime = Date.now();
+        let timeMs = actualTime - startTime;
+        document.querySelector('#time').innerText = `${(timeMs / 1000).toFixed(2)} secs`; // prints 2 decimals
+    }, 10);
 }
 
 function turnUser(board) {
