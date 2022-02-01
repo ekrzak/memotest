@@ -1,16 +1,25 @@
-document.querySelector('#button-start').onclick = startGame;
+const $start = document.querySelector('#button-start');
+$start.onclick = startGame;
 
 const colors = ['red', 'blue', 'yellow', 'green', 'purple', 'white'];
 const firstHalf = colors.slice(); // returns a copy of the array, not the array ifself
 const secondHalf = colors.slice();
+const randomBoard = shuffle(firstHalf).concat(shuffle(secondHalf));
+const COMBINATIONS = colors.length;
 
-function startGame() {
-    let tries = 0;
-    const randomBoard = shuffle(firstHalf).concat(shuffle(secondHalf));
+let clicks = 0;
+let selections = [];
+let rightGuesses = 0;
+let tries = 0;
+
+async function startGame() {
+    $start.disabled = true;
     startChronometer();
-    turnUser(randomBoard);
+    document.querySelectorAll('.cell').forEach(cell => cell.onclick = handleClick);
+    await wait(2500);    
+    handleGuesses(selections);
+    handleRound();    
 };
-
 
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -29,11 +38,53 @@ function startChronometer() {
     }, 10);
 }
 
-function turnUser(board) {
-    document.querySelectorAll('.cell').forEach(function(element) {
-        element.onclick = function(event) {
-            event.target.classList.toggle(board[Number(event.target.innerText)-1]); // Discovers the colors assigned for randomBoard when the user clicks on them
-            console.log(board[Number(event.target.innerText)-1]);
-        };
+function stopChronometer() {
+    for (let i = 1; i < 99999; i++) {
+        window.clearInterval(i);
+    }
+}
+
+function wait(delay) {
+    return new Promise(resolve => {
+        setTimeout(resolve, delay);
     });
+}
+
+async function handleRound() {
+    selections = [];
+    clicks = 0;
+    await wait(2500);
+    handleGuesses(selections);
+    if (rightGuesses < COMBINATIONS) {
+        handleRound();
+    }
+    if (rightGuesses === COMBINATIONS) {
+        stopChronometer();
+        document.querySelector('#instructions').innerText = 'Congratulations! You won the game! Press F5 to start again.';
+    }    
+}
+
+function handleGuesses(clickedCells) {
+    if (clickedCells[0] === clickedCells[1]) {
+        document.querySelectorAll('.'+clickedCells[0]).forEach(cell => {
+            cell.classList.remove(clickedCells[0]);
+            cell.classList.add('black');
+        });
+        rightGuesses++;       
+    } else {
+        document.querySelector('.'+clickedCells[0]).classList.remove(clickedCells[0]);
+        document.querySelector('.'+clickedCells[1]).classList.remove(clickedCells[1]);
+    }
+    tries++;
+    document.querySelector('#tries').innerText = String(tries);
+}
+
+const handleClick = (event) => {
+    clicks++;
+    if (clicks <= 2) {
+        if (!event.target.classList.contains('black')) {
+            event.target.classList.toggle(randomBoard[Number(event.target.innerText)-1]); // Discovers the colors assigned for randomBoard when the user clicks on them
+            selections.push(randomBoard[Number(event.target.innerText)-1]);
+        }
+    }
 }
