@@ -15,7 +15,7 @@ let tries = 0;
 async function startGame() {
     $start.disabled = true;
     startChronometer();
-    document.querySelectorAll('.cell').forEach(cell => cell.onclick = handleClick);
+    document.querySelector('#board').onclick = handleClick;
     await wait(2500);    
     handleGuesses(selections);
     handleRound();    
