@@ -3,8 +3,12 @@ body {
     background: linear-gradient(90deg, rgba(4,4,4,0.9640231092436975) 0%, rgba(138,79,65,1) 0%, rgba(190,197,199,1) 100%, rgba(182,182,182,1) 100%);
 }
 
+#board {
+    width: 50%;
+}
+
 .cell {
-    height: 10vw;
+    height: 10.1vw;
     outline: 1px solid black;
     background-color: #777;
     transition: background-color 750ms;
