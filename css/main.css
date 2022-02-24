@@ -3,6 +3,11 @@ body {
     background: linear-gradient(90deg, rgba(4,4,4,0.9640231092436975) 0%, rgba(138,79,65,1) 0%, rgba(190,197,199,1) 100%, rgba(182,182,182,1) 100%);
 }
 
+#menu {
+    width: 50%;
+    margin: 1.5rem auto;
+}
+
 #board {
     width: 50%;
 }
