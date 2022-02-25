@@ -60,7 +60,7 @@ async function handleRound() {
     }
     if (rightGuesses === COMBINATIONS) {
         stopChronometer();
-        document.querySelector('#instructions').innerText = 'Congratulations! You won the game! Press F5 to start again.';
+        document.querySelector('#instructions').innerText = 'Congratulations! 🎉🎊 You won the game! Press F5 to start again.';
     }    
 }
 
