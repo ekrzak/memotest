@@ -7,18 +7,14 @@ const secondHalf = colors.slice();
 const randomBoard = shuffle(firstHalf).concat(shuffle(secondHalf));
 const COMBINATIONS = colors.length;
 
-let clicks = 0;
-let selections = [];
+let $firstSelection = null;
 let rightGuesses = 0;
 let tries = 0;
 
-async function startGame() {
+function startGame() {
     $start.disabled = true;
     startChronometer();
     document.querySelector('#board').onclick = handleClick;
-    await wait(2500);    
-    handleGuesses(selections);
-    handleRound();    
 };
 
 function shuffle(array) {
@@ -44,47 +40,70 @@ function stopChronometer() {
     }
 }
 
-function wait(delay) {
-    return new Promise(resolve => {
-        setTimeout(resolve, delay);
-    });
-}
-
-async function handleRound() {
-    selections = [];
-    clicks = 0;
-    await wait(2500);
-    handleGuesses(selections);
+function handleEndGame() {
     if (rightGuesses < COMBINATIONS) {
-        handleRound();
+        return;
     }
     if (rightGuesses === COMBINATIONS) {
-        stopChronometer();
-        document.querySelector('#instructions').innerText = 'Congratulations! 🎉🎊 You won the game! Press F5 to start again.';
+        setTimeout(function() {
+            stopChronometer();
+            document.querySelector('#instructions').innerText = 'Congratulations! 🎉🎊 You won the game! Press F5 to start again.';
+        }, 500);
     }    
 }
 
-function handleGuesses(clickedCells) {
-    if (clickedCells[0] === clickedCells[1]) {
-        document.querySelectorAll('.'+clickedCells[0]).forEach(cell => {
-            cell.classList.remove(clickedCells[0]);
-            cell.classList.add('black');
-        });
-        rightGuesses++;       
-    } else {
-        document.querySelector('.'+clickedCells[0]).classList.remove(clickedCells[0]);
-        document.querySelector('.'+clickedCells[1]).classList.remove(clickedCells[1]);
+function showCell(cell) {
+    if (!cell.classList.contains('disabled')) {
+        cell.classList.add(randomBoard[Number(cell.innerText)-1]);
     }
-    tries++;
-    document.querySelector('#tries').innerText = String(tries);
+}
+
+function hideCell(cell) {
+    if (!cell.classList.contains('disabled')) {
+        setTimeout(function() {
+            cell.classList.remove(randomBoard[Number(cell.innerText)-1]);
+        }, 500);
+    }
+}
+
+function removeCell(cell) {
+    setTimeout(function() {
+        cell.classList.add('disabled');
+    }, 500);
+}
+
+function areEquals(firstCell, secondCell) {
+    const isTheSameColor = randomBoard[Number(firstCell.innerText)-1] === randomBoard[Number(secondCell.innerText)-1];
+    return isTheSameColor;
 }
 
 const handleClick = (event) => {
-    clicks++;
-    if (clicks <= 2) {
-        if (!event.target.classList.contains('black')) {
-            event.target.classList.toggle(randomBoard[Number(event.target.innerText)-1]); // Discovers the colors assigned for randomBoard when the user clicks on them
-            selections.push(randomBoard[Number(event.target.innerText)-1]);
+    const $currentSelection = event.target;
+    showCell($currentSelection);
+    
+    if ($firstSelection === null) {
+        $firstSelection = $currentSelection;
+    } else {
+        if ($firstSelection === $currentSelection) {
+            return;
         }
+
+    
+        if (!$currentSelection.classList.contains('disabled') && !$firstSelection.classList.contains('disabled')) {
+            tries++;
+            document.querySelector('#tries').innerText = String(tries);
+
+            if (areEquals($firstSelection, $currentSelection)) {
+                removeCell($firstSelection);
+                removeCell($currentSelection);
+                rightGuesses++;
+                handleEndGame();
+            } else {
+                hideCell($firstSelection);
+                hideCell($currentSelection);
+            }
+        }
+        
+        $firstSelection = null;
     }
 }
